@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:drift/drift.dart';
-import 'package:drift_flutter/drift_flutter.dart';
+import 'package:drift/native.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 part 'users_local_db.g.dart';
 
@@ -40,9 +44,9 @@ class UsersLocalDb extends _$UsersLocalDb {
 
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-    final db = await driftDatabase(
-      name: 'users.db',
-    );
-    return db;
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File(p.join(dir.path, 'users.db'));
+
+    return NativeDatabase.createInBackground(file);
   });
 }
