@@ -5,5 +5,6 @@ import 'package:sqlite3/wasm.dart';
 Future<QueryExecutor> openConnectionImpl() async {
   final sqlite3 = await WasmSqlite3.loadFromUrl(Uri.parse('sqlite3.wasm'));
   final fs = await IndexedDbFileSystem.open(dbName: 'users_db');
+  sqlite3.registerVirtualFileSystem(fs);
   return WasmDatabase(sqlite3: sqlite3, path: 'users.db', fileSystem: fs);
 }
