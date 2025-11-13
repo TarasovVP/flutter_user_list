@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import '../../../core/constants.dart';
 import '../../../features/users/data/users_api.dart';
 import '../../../features/users/data/database/users_local_db.dart';
+import '../../../features/users/data/database/connection/connection.dart';
 import '../../../features/users/data/datasource/local_user_data_source.dart';
 import '../../../features/users/data/datasource/remote_user_data_source.dart';
 import '../../../features/users/data/repository/user_repository_impl.dart';
@@ -29,9 +30,10 @@ Future<void> initDependencies() async {
         () => UsersApi(sl<Dio>()),
   );
 
-  sl.registerLazySingleton<UsersLocalDb>(
-        () => UsersLocalDb(),
-  );
+  sl.registerSingletonAsync<UsersLocalDb>(() async {
+    final executor = await openConnection();
+    return UsersLocalDb(executor);
+  });
 
   sl.registerLazySingleton<RemoteUserDataSource>(
         () => RemoteUserDataSourceImpl(sl<UsersApi>()),

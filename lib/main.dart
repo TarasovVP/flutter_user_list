@@ -8,6 +8,7 @@ import 'features/users/presentation/pages/users_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDependencies();
+  await sl.allReady();
   runApp(const MyApp());
 }
 

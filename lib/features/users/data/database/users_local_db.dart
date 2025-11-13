@@ -1,9 +1,4 @@
-import 'dart:io';
-
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 
 part 'users_local_db.g.dart';
 
@@ -24,29 +19,17 @@ class UsersTable extends Table {
 
 @DriftDatabase(tables: [UsersTable])
 class UsersLocalDb extends _$UsersLocalDb {
-  UsersLocalDb() : super(_openConnection());
+  UsersLocalDb(QueryExecutor executor) : super(executor);
 
   @override
   int get schemaVersion => 1;
 
-  Future<List<UsersTableData>> getAllUsers() =>
-      select(usersTable).get();
+  Future<List<UsersTableData>> getAllUsers() => select(usersTable).get();
 
   Future<void> clearAndInsertAll(List<UsersTableCompanion> entries) async {
     await transaction(() async {
       await delete(usersTable).go();
-      await batch((batch) {
-        batch.insertAll(usersTable, entries);
-      });
+      await batch((b) => b.insertAll(usersTable, entries));
     });
   }
-}
-
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dir = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dir.path, 'users.db'));
-
-    return NativeDatabase.createInBackground(file);
-  });
 }
