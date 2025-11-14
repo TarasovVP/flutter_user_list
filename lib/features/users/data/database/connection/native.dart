@@ -1,4 +1,5 @@
 import 'dart:io';
+import '../../../../../core/constants.dart';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
@@ -8,6 +9,6 @@ Future<QueryExecutor> openConnectionImpl() => _open();
 
 Future<QueryExecutor> _open() async {
   final dir = await getApplicationSupportDirectory();
-  final file = File(p.join(dir.path, 'users.db'));
+  final file = File(p.join(dir.path, Constants.userDb));
   return NativeDatabase.createInBackground(file);
 }
