@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_user_list/core/constants.dart';
 
 import 'di/injection_container.dart';
 import 'features/users/presentation/cubit/users_cubit.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider<UsersCubit>(
       create: (_) => sl<UsersCubit>(),
       child: MaterialApp(
-        title: 'Flutter User List',
+        title: Constants.flutterUserList,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
