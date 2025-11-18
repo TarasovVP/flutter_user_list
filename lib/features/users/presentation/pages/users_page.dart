@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_user_list/core/constants.dart';
 
 import '../cubit/users_cubit.dart';
 import '../state/users_ui_state.dart';
@@ -11,7 +12,7 @@ class UsersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Users')),
+      appBar: AppBar(title: const Text(Constants.users)),
       body: BlocBuilder<UsersCubit, UsersUiState>(
         builder: (context, state) {
           if (state.isLoading && state.users.isEmpty) {
@@ -19,7 +20,7 @@ class UsersPage extends StatelessWidget {
           }
 
           if (state.error != null && state.users.isEmpty) {
-            return Center(child: Text('Error: ${state.error}'));
+            return Center(child: Text('${Constants.error}: ${state.error}'));
           }
 
           return RefreshIndicator(

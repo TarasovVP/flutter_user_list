@@ -9,6 +9,6 @@ Future<QueryExecutor> openConnectionImpl() => _open();
 
 Future<QueryExecutor> _open() async {
   final dir = await getApplicationSupportDirectory();
-  final file = File(p.join(dir.path, Constants.userDb));
+  final file = File(p.join(dir.path, Constants.userDbName));
   return NativeDatabase.createInBackground(file);
 }
