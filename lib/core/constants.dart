@@ -5,4 +5,5 @@ class Constants {
   static const users = 'Users';
   static const error = 'Error';
   static const flutterUserList = 'Flutter User List';
+  static const defaultSize = 16.0;
 }

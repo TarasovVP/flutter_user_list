@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_user_list/core/constants.dart';
 
 import '../../domain/model/user.dart';
 import 'user_row.dart';
@@ -14,7 +15,7 @@ class UsersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(Constants.defaultSize),
       itemCount: users.length,
       separatorBuilder: (_, __) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
