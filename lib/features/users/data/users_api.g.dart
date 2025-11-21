@@ -36,7 +36,7 @@ class _UsersApi implements UsersApi {
     )
         .compose(
           _dio.options,
-          'users',
+          Constants.users,
           queryParameters: queryParameters,
           data: _data,
         )
