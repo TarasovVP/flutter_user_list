@@ -9,4 +9,3 @@ void main() async {
   await sl.allReady();
   runApp(const MyApp());
 }
-
